@@ -7,3 +7,7 @@ results/raw/
 *.zip
 __pycache__/
 *.pyc
+.idea/
+.venv/
+venv/
+.DS_Store

@@ -1,3 +1,4 @@
+# Python 3.11 or newer. ffmpeg and ffprobe are separate; they have to be on PATH.
 numpy>=1.26
 scipy>=1.11
 matplotlib>=3.8

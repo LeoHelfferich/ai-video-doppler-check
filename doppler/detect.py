@@ -6,6 +6,11 @@ from scipy.ndimage import median_filter, uniform_filter1d
 
 SR = 44100
 
+def fft_length(sr, target_bin_hz):
+    # Next power of two at or above sr/target_bin_hz, so each bin is at most target_bin_hz wide.
+    # At 44.1 kHz and 2.5 Hz that is 32768 samples, which is 1.35 Hz, not 2.5.
+    return int(2 ** np.ceil(np.log2(sr / target_bin_hz)))
+
 def load_audio(path):
     """Decode any audio/video file to mono float32 at 44.1 kHz with ffmpeg."""
     raw = subprocess.run(["ffmpeg", "-v", "error", "-i", str(path), "-vn", "-ac", "1", "-ar", str(SR),
@@ -14,7 +19,7 @@ def load_audio(path):
 
 def spectrogram(x, cfg):
     s = cfg["spectrogram"]
-    nper = int(2 ** np.ceil(np.log2(SR / s["target_bin_hz"])))
+    nper = fft_length(SR, s["target_bin_hz"])
     hop = int(SR * s["hop_s"])
     x = np.pad(x, nper // 2)
     f, t, Z = signal.stft(x, SR, window="hann", nperseg=nper, noverlap=nper - hop, boundary=None, padded=False)
@@ -67,7 +72,8 @@ def qualifies(tr, cfg):
     fs = uniform_filter1d(ff, size=min(d["smooth_frames"], len(ff)), mode="nearest")
     n = max(1, len(fs) // 5)
     ratio = np.median(fs[:n]) / np.median(fs[-n:])
-    rho = stats.spearmanr(tt, fs).statistic
+    # A constant series has no rank correlation, and spearmanr warns on it.
+    rho = 0.0 if np.ptp(fs) == 0 else stats.spearmanr(tt, fs).statistic
     mono = np.mean(np.diff(fs) <= 1e-9)
     jitter = float(np.std(ff - uniform_filter1d(ff, size=min(2 * d["smooth_frames"] + 1, len(ff)), mode="nearest")))
     info = dict(duration_s=dur, ratio=ratio, spearman=rho, monotone=mono, f_start=float(np.median(fs[:n])),

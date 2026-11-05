@@ -5,8 +5,15 @@
 import numpy as np
 from scipy.optimize import curve_fit
 
+# Edges of the fly-by search. A result within tol of either edge is the ceiling of the search, not a speed.
+FIT_V_MIN = 0.5
+FIT_V_MAX = 300.0
+
 def speed_from_ratio(R, c):
     return c * (R - 1) / (R + 1)
+
+def speed_at_bound(v, lo=FIT_V_MIN, hi=FIT_V_MAX, tol_m_s=0.05):
+    return v is not None and (abs(v - lo) <= tol_m_s or abs(v - hi) <= tol_m_s)
 
 def flyby(t, f0, v, t0, d, c=343.0):
     x = v * (t - t0)
@@ -17,7 +24,7 @@ def fit_flyby(tr, c):
     p0 = [np.median(f), 40.0, np.median(t), 50.0]
     try:
         p, _ = curve_fit(lambda tt, f0, v, t0, d: flyby(tt, f0, v, t0, d, c), t, f, p0=p0,
-                         bounds=([5, 0.5, t[0] - 20, 1], [400, 300, t[-1] + 20, 2000]), maxfev=20000)
+                         bounds=([5, FIT_V_MIN, t[0] - 20, 1], [400, FIT_V_MAX, t[-1] + 20, 2000]), maxfev=20000)
     except Exception:
         return None
     pred = flyby(t, *p, c=c)

@@ -1,6 +1,9 @@
 # All detector, physics and dataset parameters live here.
 [data]
-esc50_url = "https://github.com/karoldvl/ESC-50/archive/master.zip"
+# Pinned to the commit `master` pointed at on the measurement date, 5 Nov 2026 (33c8ce9).
+# That commit only edits the upstream README; the audio matches its parent. GitHub archive
+# checksums drift, so fetch checks the extracted set (2000 wavs) instead of a zip hash.
+esc50_url = "https://github.com/karolpiczak/ESC-50/archive/33c8ce9eb2cf0b1c2f8bcf322eb349b6be34dbb6.zip"
 real_plane_class = "airplane"
 real_noplane_classes = ["wind", "rain", "sea_waves", "crickets", "chirping_birds", "engine", "train", "thunderstorm"]
 real_noplane_per_class = 10        # N files per class, sorted by filename (deterministic)

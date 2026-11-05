@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="description" content="A measurement of the claim that a video with no airplane Doppler curve is AI-generated. 5 November 2026.">
+<title>Do AI videos lack airplane Doppler curves?</title>
+<style>
+  :root {
+    --bg: #0B0F17;
+    --fg: #F2F4F8;
+    --muted: #8A93A6;
+    --line: #2A3142;
+    --acc: #3DB8D1;
+    --bad: #D65A7A;
+    --track: #1A2130;
+  }
+  * { box-sizing: border-box; }
+  html { background: var(--bg); }
+  body {
+    margin: 0 auto;
+    max-width: 44rem;
+    padding: 3.5rem 1.25rem 5rem;
+    background: var(--bg);
+    color: var(--fg);
+    font: 1.05rem/1.55 "Avenir Next", "Segoe UI", Helvetica, Arial, sans-serif;
+    font-variant-numeric: tabular-nums;
+  }
+  h1 {
+    margin: 0 0 0.4rem;
+    font-size: 2.15rem;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+  }
+  h2 {
+    margin: 2.6rem 0 0.7rem;
+    font-size: 1.25rem;
+    letter-spacing: -0.01em;
+  }
+  p { margin: 0.8rem 0; }
+  a { color: var(--acc); }
+  .byline { color: var(--muted); margin: 0 0 1.6rem; }
+  .lede { font-size: 1.12rem; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.2rem 0 0.4rem;
+    font-size: 0.95rem;
+  }
+  th, td {
+    text-align: left;
+    padding: 0.45rem 0.4rem 0.45rem 0;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  th { color: var(--muted); font-weight: 600; }
+  td.n, th.n { text-align: right; padding-right: 0; white-space: nowrap; }
+  figure { margin: 1.6rem 0 0.4rem; }
+  img { width: 100%; height: auto; display: block; background: var(--bg); }
+  figcaption { color: var(--muted); font-size: 0.92rem; margin-top: 0.7rem; }
+  figcaption strong { color: var(--fg); font-weight: 600; }
+  ul { margin: 0.6rem 0; padding-left: 1.15rem; }
+  li { margin: 0.35rem 0; }
+  code {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 0.88em;
+    color: var(--fg);
+  }
+  footer {
+    margin-top: 3rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 0.92rem;
+  }
+</style>
+</head>
+<body>
+<p class="byline">Leo Helfferich · 5 November 2026</p>
+<h1>Do AI videos lack airplane Doppler curves?</h1>
+<p class="lede">A rule spread on X that month: a video with no low-frequency airplane Doppler curve is AI-generated. These are the counts from one detector, twenty Grok Imagine clips, and the ESC-50 airplane recordings.</p>
+<p>The rule does not hold on this set. Four of the ten generated clips that were asked for an airplane contain a falling curve, so the rule would call them real. Thirty of the forty real airplane recordings contain no such curve, so the rule would call them AI.</p>
+
+<h2>Counts</h2>
+<table>
+  <thead>
+    <tr><th>Set</th><th class="n">Clips</th><th class="n">Falling curve</th><th class="n">Steady harmonics</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Grok Imagine, airplane in the prompt</td><td class="n">10</td><td class="n">4</td><td class="n">1</td></tr>
+    <tr><td>Grok Imagine, no airplane</td><td class="n">10</td><td class="n">0</td><td class="n">0</td></tr>
+    <tr><td>ESC-50, airplane</td><td class="n">40</td><td class="n">10</td><td class="n">7</td></tr>
+    <tr><td>ESC-50, no airplane, held out from tuning</td><td class="n">80</td><td class="n">3</td><td class="n">0</td></tr>
+  </tbody>
+</table>
+<p>Read the way the rule reads, “no curve means AI”:</p>
+<ul>
+  <li>4 of 10 generated airplane clips would be called real.</li>
+  <li>30 of 40 real airplane clips would be called AI.</li>
+  <li>77 of 80 real clips with no airplane would be called AI. That is what the rule predicts for audio with no airplane in it. A coin flip, the other baseline, is wrong half the time.</li>
+</ul>
+<p>The speed implied by the start and end frequency has median 15&nbsp;m/s on the generated airplane curves, 20&nbsp;m/s on the real airplane curves, and 5&nbsp;m/s on the three real false positives. A fly-by fit has median 35&nbsp;m/s on the generated curves and 67&nbsp;m/s on nine of the ten real airplane curves. The tenth real airplane fit, and all three false positives, sat on the optimizer ceiling of 300&nbsp;m/s. Those four are left out of the median. The raw values are in the per-clip table in the repository.</p>
+
+<h2>The four generated clips the rule would call real</h2>
+<table>
+  <thead>
+    <tr><th>Clip</th><th class="n">Start</th><th class="n">End</th><th class="n">Length</th><th class="n">Speed from ratio</th><th class="n">Steady harmonics</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>p01</code></td><td class="n">72 Hz</td><td class="n">60 Hz</td><td class="n">3.85 s</td><td class="n">32 m/s</td><td class="n">1</td></tr>
+    <tr><td><code>p03</code></td><td class="n">44 Hz</td><td class="n">41 Hz</td><td class="n">1.5 s</td><td class="n">10 m/s</td><td class="n">0</td></tr>
+    <tr><td><code>p05</code></td><td class="n">68 Hz</td><td class="n">61 Hz</td><td class="n">2.45 s</td><td class="n">20 m/s</td><td class="n">0</td></tr>
+    <tr><td><code>p10</code></td><td class="n">137 Hz</td><td class="n">130 Hz</td><td class="n">3.3 s</td><td class="n">9 m/s</td><td class="n">0</td></tr>
+  </tbody>
+</table>
+<p><code>p01</code> is the one with a harmonic pair at a steady ratio of about 2. <code>p10</code> implies 9&nbsp;m/s, under the 10&nbsp;m/s floor in the config. That floor does not change the rule flag. The other three generated hits are a single falling ridge.</p>
+<p>The three real false positives are a rain clip, a birds clip, and a thunder clip (<code>2-73260-A-10</code>, <code>3-155579-A-14</code>, <code>2-39945-A-19</code>). Each is a short ridge just past a 3% drop, with no harmonic pair, and a fly-by fit on the 300&nbsp;m/s ceiling.</p>
+
+<h2>The clip the rule would wave through</h2>
+<figure>
+  <img src="figures/01_hero_ki_doppler.png" width="1080" height="1350" alt="Spectrogram of a Grok Imagine clip. A cyan track falls from about 72 Hz to 60 Hz over the first four seconds.">
+  <figcaption>
+    <strong>English for the German labels.</strong>
+    “KI-Video. Doppler-Kurve trotzdem da.” is “AI video. A Doppler curve is there anyway.”
+    Cyan is the detector track. Zeit is time, Frequenz is frequency.
+    “72 Hz → 60 Hz, fallende Tonhöhe in 3,8 s” is a falling pitch over 3.8 seconds.
+    The closing line says the Doppler check (“no Doppler curve means AI”) would have waved this video through as real.
+    This spectrogram is generated clip <code>p01</code>, the longest generated track. The footer credits ESC-50 because that is the project-wide data line; this panel itself is generated audio.
+  </figcaption>
+</figure>
+
+<h2>Four soundtracks, one detector</h2>
+<figure>
+  <img src="figures/02_raster_echt_vs_ki.png" width="1080" height="1350" alt="Four spectrograms. The real airplane and the generated airplane show a cyan falling track. The wind clip and the generated park clip do not.">
+  <figcaption>
+    <strong>English for the German labels.</strong>
+    “Vier Tonspuren, ein Detektor” is “Four soundtracks, one detector.”
+    Top left, “Echt, Flugzeug / Kurve gefunden”: real airplane, curve found (<code>1-43807-A-47</code>). Its fly-by speed sat on the 300&nbsp;m/s ceiling; the panel shows the detector track.
+    Top right, “Echt, nur Wind”: real wind only, and the check says AI (<code>2-109371-A-16</code>).
+    Bottom left, “KI, Flugzeug”: generated airplane, curve found (<code>p05</code>).
+    Bottom right, “KI, Park ohne Flugzeug”: generated park with no airplane, and the check says AI (<code>n01</code>).
+    The panels are the ones the figure code picks: longest tracks, then a wind clip, then the generated hit with the best fly-by R² after the hero. They are examples, not a random draw.
+    This figure contains ESC-50 spectrograms, so it is CC BY-NC 3.0, Piczak 2015, Freesound.
+  </figcaption>
+</figure>
+
+<h2>What the check actually counts</h2>
+<figure>
+  <img src="figures/03_fehlerquoten_regel.png" width="1080" height="1350" alt="Bar chart. Generated airplane clips called real: 4 of 10. Coin flip: 50 percent. Real airplane clips called AI: 30 of 40. Real clips without an airplane called AI: 77 of 80.">
+  <figcaption>
+    <strong>English for the German labels.</strong>
+    “Was der Doppler-Check wirklich misst” is “What the Doppler check actually measures.”
+    The subtitle is the rule: no Doppler curve means AI.
+    Top bar, cyan, “KI mit Flugzeug im Prompt als echt durchgewunken”: generated, airplane in the prompt, waved through as real, 4 of 10.
+    Second bar, “Münzwurf”: a coin flip, 50%.
+    Third bar, “Echt, mit Flugzeug als KI markiert”: real, with an airplane, marked AI, 30 of 40.
+    Bottom bar, “Echt, ohne Flugzeug als KI markiert”: real, with no airplane, marked AI, 77 of 80.
+  </figcaption>
+</figure>
+
+<h2>What counts as a curve</h2>
+<p>Audio is decoded to mono at 44.1&nbsp;kHz. The spectrogram runs from 20 to 250&nbsp;Hz. The bin is 1.35&nbsp;Hz and the hop is 50&nbsp;ms. A track counts when it lasts at least 1.5&nbsp;s, falls monotonically, drops by at least 3% from start to end, and stays smooth (jitter at most 0.4&nbsp;Hz). The harmonic check asks whether two tracks keep a constant frequency ratio, which is what a single moving source does to all of its harmonics. Every threshold is in <code>config.toml</code> in the repository. The detector was tuned by hand on a held-out slice of ESC-50, files 1 to 10 of each non-airplane class, and those files are not in the counts above.</p>
+
+<h2>What this measurement does not say</h2>
+<ul>
+  <li>Twenty generated clips, one generator, Grok Imagine, 10&nbsp;s, 480p, made on 5 November 2026. Nothing here is about Sora, Veo, or any other model.</li>
+  <li>The airplane was asked for in the prompt. That is a favorable case for the generator, and it is a different population from videos found in the wild.</li>
+  <li>ESC-50 clips are five seconds, and many of the airplanes are distant. Ten of forty real airplane clips showing a curve is about this detector on this set.</li>
+  <li>Other thresholds give other numbers. The config file is the experiment.</li>
+  <li>A falling ridge is the rule. A physically consistent aircraft is a further claim. One of the four generated curves passed the steady-harmonic check. Seven of the ten real airplane curves did.</li>
+</ul>
+
+<h2>Check it</h2>
+<p>The code, the per-clip table, the prompts, and the sha256 of each generated file are in <a id="source" href="../README.md">the repository</a>. The ESC-50 audio and the twenty videos are not. ESC-50 is downloaded from its own repository by the fetch step. The generated files go in <code>data/ai/</code> under the names in the manifest, and the run stops if a checksum differs.</p>
+<p>The claim this measures is Adam Holter’s <a href="https://x.com/AdamHoltererer/status/2117703357536031204">thread</a>, shared by Pierre Beyssac in <a href="https://x.com/pbeyssac/status/2117974748281892884">this post</a>. Holter’s figure already says that a low-frequency curve alone does not establish a recorded aircraft. The underlying idea is @0x45o’s geolocation of videos through aircraft Doppler.</p>
+
+<footer>
+  <p>Code: MIT, Leo Helfferich, 2026. ESC-50 audio is CC BY-NC 3.0, Karol J. Piczak, ACM Multimedia 2015, clips from Freesound, and is not included here. The four-panel figure contains ESC-50 spectrograms and inherits that licence.</p>
+</footer>
+<script>
+(function () {
+  var host = location.hostname;
+  if (host.slice(-10) !== "github.io") return;
+  var repo = location.pathname.split("/").filter(Boolean)[0];
+  var user = host.slice(0, -10);
+  var link = document.getElementById("source");
+  if (repo && user && link) link.href = "https://github.com/" + user + "/" + repo;
+})();
+</script>
+</body>
+</html>

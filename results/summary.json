@@ -6,7 +6,8 @@
       "multi_harmonic": 8,
       "const_ratio": 7,
       "v_ratio_median": 19.7111429323815,
-      "v_fit_median": 77.23444131401152,
+      "v_fit_median": 66.5316358321065,
+      "v_fit_at_bound": 1,
       "r2_fit_median": 0.9972772482744141,
       "best_cv_median": 0.0016777704204929496,
       "cv_median": 0.002964090423650704
@@ -17,7 +18,8 @@
       "multi_harmonic": 0,
       "const_ratio": 0,
       "v_ratio_median": 5.1562683533671345,
-      "v_fit_median": 299.99999990848323,
+      "v_fit_median": null,
+      "v_fit_at_bound": 3,
       "r2_fit_median": 0.9034600873955743,
       "best_cv_median": null,
       "cv_median": null
@@ -29,6 +31,7 @@
       "const_ratio": 1,
       "v_ratio_median": 15.257066195792639,
       "v_fit_median": 35.207863013707254,
+      "v_fit_at_bound": 0,
       "r2_fit_median": 0.9566134591822117,
       "best_cv_median": 0.005763864680206873,
       "cv_median": 0.01415504892260293
@@ -40,6 +43,7 @@
       "const_ratio": 0,
       "v_ratio_median": null,
       "v_fit_median": null,
+      "v_fit_at_bound": 0,
       "r2_fit_median": null,
       "best_cv_median": null,
       "cv_median": null
@@ -83,7 +87,7 @@
   },
   "config": {
     "data": {
-      "esc50_url": "https://github.com/karoldvl/ESC-50/archive/master.zip",
+      "esc50_url": "https://github.com/karolpiczak/ESC-50/archive/33c8ce9eb2cf0b1c2f8bcf322eb349b6be34dbb6.zip",
       "real_plane_class": "airplane",
       "real_noplane_classes": [
         "wind",

@@ -1,4 +1,7 @@
-"""Post graphics dark-v2: 1080x1350 (4:5), cleaned dark theme, German labels."""
+"""Post graphics: 1080x1350 (4:5), dark theme, German labels.
+
+These files are the graphics for the post. The English statement of the same numbers is docs/index.html.
+"""
 from pathlib import Path
 import numpy as np
 import matplotlib
