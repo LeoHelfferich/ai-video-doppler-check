@@ -1,0 +1,9 @@
+# ESC-50 is CC BY-NC 3.0 and must not be redistributed. `make fetch` downloads
+# it into data/. AI clips go in data/ai/. Do not commit audio, video, or the zip.
+data/
+results/raw/
+*.wav
+*.mp4
+*.zip
+__pycache__/
+*.pyc

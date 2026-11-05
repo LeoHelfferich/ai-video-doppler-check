@@ -1,0 +1,43 @@
+# All detector, physics and dataset parameters live here.
+[data]
+esc50_url = "https://github.com/karoldvl/ESC-50/archive/master.zip"
+real_plane_class = "airplane"
+real_noplane_classes = ["wind", "rain", "sea_waves", "crickets", "chirping_birds", "engine", "train", "thunderstorm"]
+real_noplane_per_class = 10        # N files per class, sorted by filename (deterministic)
+real_noplane_offset = 10           # skip the first 10 per class: those were used to tune the detector
+
+[spectrogram]
+fmin_hz = 20.0
+fmax_hz = 250.0
+target_bin_hz = 2.5                # nperseg = next pow2 of sr / target_bin_hz
+hop_s = 0.05
+
+[ridge]
+whiten_width_hz = 40.0             # median filter along frequency, removes broadband floor
+peak_prominence_db = 8.0           # peak must stand this far above the whitened floor
+max_peaks_per_frame = 8
+max_jump_hz_per_s = 25.0           # linking tolerance between frames
+max_gap_frames = 3
+
+[doppler]
+min_duration_s = 1.5
+min_ratio_start_end = 1.03         # f_start / f_end; ~5 m/s equivalent source speed
+max_spearman = -0.8                # monotonic downward
+min_monotone_frac = 0.7            # share of non-rising steps (smoothed)
+smooth_frames = 5
+max_jitter_hz = 0.4               # a real tonal source moves smoothly; noise ridges wander
+min_tracks = 1                     # rule flag: at least this many qualifying tracks
+harmonic_overlap_s = 1.0           # two tracks count as a harmonic pair if they overlap this long
+
+[physics]
+c_m_s = 343.0
+harmonic_ratio_cv_max = 0.02       # constant-ratio test: coefficient of variation of f2/f1
+harmonic_ratio_integer_tol = 0.06  # |r - round(r)|/r for integer-ratio check
+v_plausible_min = 10.0
+v_plausible_max = 120.0
+
+# The harmonic check runs a second, looser tracking pass on clips the rule detector already flagged,
+# so weaker overtones are found. It never changes the rule flag itself.
+[physics.harmonic_tracking]
+max_jitter_hz = 1.0
+max_jump_hz_per_s = 40.0
