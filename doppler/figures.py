@@ -67,9 +67,9 @@ def _save(fig, path: Path):
 def hero(res, rows, path):
     fig = plt.figure(figsize=SIZE, dpi=DPI)
     fig.text(0.06, 0.945, "KI-Video.", fontsize=56, fontweight="bold", color=FG, va="top")
-    fig.text(0.06, 0.878, "Doppler-Kurve trotzdem da.", fontsize=40, fontweight="bold",
+    fig.text(0.06, 0.878, "Fallende Tonhöhe trotzdem da.", fontsize=40, fontweight="bold",
              color=ACC, va="top")
-    fig.text(0.06, 0.808, "Grok-Imagine-Clip · Cyan = Detektorkurve",
+    fig.text(0.06, 0.808, "Grok-Imagine-Clip · Cyan = fallende Tonhöhe",
              fontsize=20, color=MUTED, va="top")
     # Clear air under subtitle before plot top / 250 tick
     ax = fig.add_axes([0.12, 0.355, 0.80, 0.375])
@@ -96,7 +96,7 @@ def grid(panels, path):
     fig = plt.figure(figsize=SIZE, dpi=DPI)
     fig.text(0.06, 0.955, "Vier Tonspuren, ein Detektor", fontsize=38, fontweight="bold",
              color=FG, va="top")
-    fig.text(0.06, 0.898, "Cyan = gefundene fallende Doppler-Kurve", fontsize=20,
+    fig.text(0.06, 0.898, "Cyan = gefundene fallende Tonhöhe", fontsize=20,
              color=ACC, va="top")
     # Smaller panels + more title pad so status never crowds the plot
     pos = [
@@ -120,10 +120,10 @@ def grid(panels, path):
 
 def bars(rule, path):
     fig = plt.figure(figsize=SIZE, dpi=DPI)
-    fig.text(0.06, 0.955, "Was der Doppler-Check\nwirklich misst", fontsize=36, fontweight="bold",
+    fig.text(0.06, 0.955, "Was dieser Check\nwirklich zählt", fontsize=36, fontweight="bold",
              color=FG, va="top", linespacing=1.15)
     # ~0.03 fig ≈ 40 px at 1x below second title line
-    fig.text(0.06, 0.845, "Doppler-Check: „Keine Doppler-Kurve heißt KI.“", fontsize=22,
+    fig.text(0.06, 0.845, "Check: „Keine fallende Tonhöhe heißt KI.“", fontsize=22,
              color=MUTED, va="top")
 
     items = [
@@ -182,8 +182,8 @@ def make_all(rows, S, rule, keep, out, cfg):
 
     def lab(r):
         if r["has_doppler"]:
-            return "Kurve gefunden", True
-        return "keine Kurve, Doppler-Check sagt: KI", False
+            return "Tonhöhe gefunden", True
+        return "keine, Check sagt: KI", False
 
     panels = []
     for title, r, key in [

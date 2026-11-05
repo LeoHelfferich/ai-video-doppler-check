@@ -53,12 +53,10 @@ def main():
     S = {}
     for g in ["real_plane", "real_noplane", "ai_plane", "ai_noplane"]:
         R = grp(g); D = [r for r in R if r["has_doppler"]]
-        # A fit on the speed bound is the ceiling of the search, not a measured speed.
-        v_fit_kept = [r["v_fit"] for r in D if r["v_fit"] is not None and not physics.speed_at_bound(r["v_fit"])]
+        # Speeds stay in per_clip.csv. A short ridge does not identify v, and a fit on the
+        # search ceiling is not a speed, so the summary does not publish a speed median.
         S[g] = dict(n=len(R), doppler=len(D), multi_harmonic=sum((r["n_pairs"] or 0) > 0 for r in D),
                     const_ratio=sum((r["n_const_pairs"] or 0) > 0 for r in D),
-                    v_ratio_median=float(np.median([r["v_ratio"] for r in D])) if D else None,
-                    v_fit_median=float(np.median(v_fit_kept)) if v_fit_kept else None,
                     v_fit_at_bound=sum(r["v_fit"] is not None and physics.speed_at_bound(r["v_fit"]) for r in D),
                     r2_fit_median=float(np.median([r["r2_fit"] for r in D if r["r2_fit"] is not None])) if D else None,
                     best_cv_median=float(np.median([r["best_pair_cv"] for r in D if r["best_pair_cv"] is not None]))

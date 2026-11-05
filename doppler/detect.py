@@ -1,4 +1,7 @@
-"""Transparent Doppler-curve detector: low-frequency spectrogram, ridge tracking, monotone-descent test."""
+"""Falling-ridge detector: low-frequency spectrogram, ridge tracking, monotone-descent test.
+
+The rule flag is this ridge test. The physics checks do not change it.
+"""
 import subprocess
 import numpy as np
 from scipy import signal, stats

@@ -12,7 +12,7 @@ real_noplane_offset = 10           # skip the first 10 per class: those were use
 [spectrogram]
 fmin_hz = 20.0
 fmax_hz = 250.0
-target_bin_hz = 2.5                # nperseg = next pow2 of sr / target_bin_hz
+target_bin_hz = 2.5                # nperseg = next pow2 at or above sr/target; 44.1 kHz -> 32768, 1.35 Hz bin, 0.74 s window
 hop_s = 0.05
 
 [ridge]
@@ -24,7 +24,7 @@ max_gap_frames = 3
 
 [doppler]
 min_duration_s = 1.5
-min_ratio_start_end = 1.03         # f_start / f_end; ~5 m/s equivalent source speed
+min_ratio_start_end = 1.03         # f_start / f_end. The asymptotic formula would call a full pass at this ratio ~5 m/s; a short segment is not that speed.
 max_spearman = -0.8                # monotonic downward
 min_monotone_frac = 0.7            # share of non-rising steps (smoothed)
 smooth_frames = 5
