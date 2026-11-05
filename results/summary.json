@@ -1,0 +1,136 @@
+{
+  "groups": {
+    "real_plane": {
+      "n": 40,
+      "doppler": 10,
+      "multi_harmonic": 8,
+      "const_ratio": 7,
+      "v_ratio_median": 19.7111429323815,
+      "v_fit_median": 77.23444131401152,
+      "r2_fit_median": 0.9972772482744141,
+      "best_cv_median": 0.0016777704204929496,
+      "cv_median": 0.002964090423650704
+    },
+    "real_noplane": {
+      "n": 80,
+      "doppler": 3,
+      "multi_harmonic": 0,
+      "const_ratio": 0,
+      "v_ratio_median": 5.1562683533671345,
+      "v_fit_median": 299.99999990848323,
+      "r2_fit_median": 0.9034600873955743,
+      "best_cv_median": null,
+      "cv_median": null
+    },
+    "ai_plane": {
+      "n": 10,
+      "doppler": 4,
+      "multi_harmonic": 1,
+      "const_ratio": 1,
+      "v_ratio_median": 15.257066195792639,
+      "v_fit_median": 35.207863013707254,
+      "r2_fit_median": 0.9566134591822117,
+      "best_cv_median": 0.005763864680206873,
+      "cv_median": 0.01415504892260293
+    },
+    "ai_noplane": {
+      "n": 10,
+      "doppler": 0,
+      "multi_harmonic": 0,
+      "const_ratio": 0,
+      "v_ratio_median": null,
+      "v_fit_median": null,
+      "r2_fit_median": null,
+      "best_cv_median": null,
+      "cv_median": null
+    }
+  },
+  "rule": {
+    "real_noplane_called_ai": [
+      77,
+      80
+    ],
+    "real_plane_called_ai": [
+      30,
+      40
+    ],
+    "real_all_called_ai": [
+      107,
+      120
+    ],
+    "ai_called_real": [
+      4,
+      20
+    ],
+    "ai_plane_called_real": [
+      4,
+      10
+    ],
+    "baseline_always_real": {
+      "real_called_ai": [
+        0,
+        120
+      ],
+      "ai_called_real": [
+        20,
+        20
+      ]
+    },
+    "baseline_coin": {
+      "real_called_ai": 0.5,
+      "ai_called_real": 0.5
+    }
+  },
+  "config": {
+    "data": {
+      "esc50_url": "https://github.com/karoldvl/ESC-50/archive/master.zip",
+      "real_plane_class": "airplane",
+      "real_noplane_classes": [
+        "wind",
+        "rain",
+        "sea_waves",
+        "crickets",
+        "chirping_birds",
+        "engine",
+        "train",
+        "thunderstorm"
+      ],
+      "real_noplane_per_class": 10,
+      "real_noplane_offset": 10
+    },
+    "spectrogram": {
+      "fmin_hz": 20.0,
+      "fmax_hz": 250.0,
+      "target_bin_hz": 2.5,
+      "hop_s": 0.05
+    },
+    "ridge": {
+      "whiten_width_hz": 40.0,
+      "peak_prominence_db": 8.0,
+      "max_peaks_per_frame": 8,
+      "max_jump_hz_per_s": 25.0,
+      "max_gap_frames": 3
+    },
+    "doppler": {
+      "min_duration_s": 1.5,
+      "min_ratio_start_end": 1.03,
+      "max_spearman": -0.8,
+      "min_monotone_frac": 0.7,
+      "smooth_frames": 5,
+      "max_jitter_hz": 0.4,
+      "min_tracks": 1,
+      "harmonic_overlap_s": 1.0
+    },
+    "physics": {
+      "c_m_s": 343.0,
+      "harmonic_ratio_cv_max": 0.02,
+      "harmonic_ratio_integer_tol": 0.06,
+      "v_plausible_min": 10.0,
+      "v_plausible_max": 120.0,
+      "harmonic_tracking": {
+        "max_jitter_hz": 1.0,
+        "max_jump_hz_per_s": 40.0
+      }
+    }
+  }
+}
