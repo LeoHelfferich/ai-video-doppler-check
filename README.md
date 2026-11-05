@@ -29,7 +29,7 @@ Every parameter lives in `config.toml`.
 pip install -r requirements.txt   # also needs ffmpeg/ffprobe on PATH
 make all                          # fetch ESC-50, rebuild manifest, compute everything
 ```
-`make run` writes `results/per_clip.csv`, `results/summary.json` and `results/figures/*.png`. Set `DOPPLER_DATA=/path/to/data` to use another data directory.
+`make run` writes `results/per_clip.csv`, `results/summary.json` and `results/figures/*.png`. The figures are the dark style. Set `DOPPLER_DATA=/path/to/data` to use another data directory.
 
 ## Limitations
 - The sample is small: 20 AI clips from a single generator (Grok Imagine). This says nothing about Sora, Veo or others.
